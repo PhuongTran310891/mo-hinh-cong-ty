@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Mô hình hoạt động & chia lợi nhuận – Công ty TNHH 3 thành viên</title>
+<style>
+  :root{
+    --chung:#2563eb; --chung-l:#dbeafe;
+    --tb:#0d9488; --tb-l:#ccfbf1;
+    --tm:#ea580c; --tm-l:#ffedd5;
+    --cn:#7c3aed; --cn-l:#ede9fe;
+    --thue:#64748b; --thue-l:#e2e8f0;
+    --ink:#0f172a; --mut:#475569; --bg:#f8fafc;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:#1e293b;color:var(--ink)}
+  .slide{width:1280px;min-height:720px;margin:24px auto;background:var(--bg);border-radius:14px;padding:40px 56px;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  h1{margin:0 0 6px;font-size:34px}
+  h2{margin:0 0 4px;font-size:28px}
+  .sub{color:var(--mut);margin:0 0 26px;font-size:17px}
+  .num{position:absolute;right:28px;bottom:18px;color:#94a3b8;font-size:14px}
+  .row{display:flex;gap:22px;align-items:stretch;justify-content:center}
+  .box{border-radius:12px;padding:16px 18px;border:2px solid;background:#fff}
+  .box h3{margin:0 0 8px;font-size:19px}
+  .box ul{margin:0;padding-left:18px;font-size:15px;line-height:1.5}
+  .c-chung{border-color:var(--chung);background:var(--chung-l)} .c-chung h3{color:var(--chung)}
+  .c-tb{border-color:var(--tb);background:var(--tb-l)} .c-tb h3{color:var(--tb)}
+  .c-tm{border-color:var(--tm);background:var(--tm-l)} .c-tm h3{color:var(--tm)}
+  .c-cn{border-color:var(--cn);background:var(--cn-l)} .c-cn h3{color:var(--cn)}
+  .c-thue{border-color:var(--thue);background:var(--thue-l)} .c-thue h3{color:var(--thue)}
+  .arrow-down{text-align:center;font-size:30px;color:var(--mut);line-height:1;margin:6px 0}
+  .tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:600;color:#fff}
+  .member{width:170px;text-align:center;padding:12px;border-radius:12px;background:#fff;border:2px solid var(--ink);font-weight:600}
+  .member small{display:block;color:var(--mut);font-weight:400}
+  .company{margin:0 auto;width:640px;text-align:center;background:var(--ink);color:#fff;border-radius:12px;padding:14px;font-size:19px;font-weight:600}
+  .company small{display:block;font-weight:400;opacity:.8;font-size:14px}
+  .note{font-size:14px;color:var(--mut)}
+  .loop{margin-top:18px;border:2px dashed var(--chung);border-radius:12px;padding:12px 18px;background:#fff;font-size:15px}
+  /* waterfall */
+  .wf{margin-top:10px}
+  .wf-row{display:flex;align-items:center;height:46px}
+  .wf-lbl{width:280px;font-size:15px}
+  .wf-lbl b{display:block}
+  .wf-track{flex:1;position:relative;height:30px;background:#eef2f7;border-radius:6px}
+  .wf-bar{position:absolute;top:0;height:30px;border-radius:6px;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;white-space:nowrap}
+  .wf-val{width:130px;text-align:right;font-weight:600;font-size:15px}
+  /* timeline */
+  .tl{display:flex;align-items:center;gap:0;margin:8px 0 24px}
+  .tl .step{flex:1;text-align:center;padding:12px 8px;font-size:15px;font-weight:600;color:#fff;position:relative}
+  .tl .step small{display:block;font-weight:400;opacity:.9;font-size:13px}
+  .tl .step:not(:last-child)::after{content:"";position:absolute;right:-14px;top:50%;transform:translateY(-50%);border:14px solid transparent;border-left-color:inherit;z-index:2}
+  table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+  th,td{border:1px solid #cbd5e1;padding:10px 12px;text-align:left;vertical-align:middle}
+  th{background:#f1f5f9}
+  .stack{display:flex;height:26px;border-radius:6px;overflow:hidden;font-size:12px;font-weight:600;color:#fff}
+  .stack div{display:flex;align-items:center;justify-content:center}
+  /* priority */
+  .prio{display:flex;flex-direction:column;gap:10px;width:620px}
+  .prio .p{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:10px;color:#fff;font-size:16px}
+  .prio .p b{font-size:24px;width:30px}
+  .legal .box{flex:1}
+  .check li{list-style:none;margin-left:-18px}
+  .check li::before{content:"☐ ";color:var(--chung);font-weight:700}
+  @media print{body{background:#fff}.slide{box-shadow:none;margin:0;page-break-after:always;border-radius:0}}
+</style>
+</head>
+<body>
+
+<!-- ========== SLIDE 1 ========== -->
+<section class="slide">
+  <h1>Mô hình tổng thể</h1>
+  <p class="sub">3 thành viên – 1 pháp nhân – 3 “túi” hạch toán riêng, liên kết bằng phí quản lý</p>
+
+  <div class="row">
+    <div class="member">Thành viên 1<small>Góp vốn 1/3</small></div>
+    <div class="member">Thành viên 2<small>Góp vốn 1/3</small></div>
+    <div class="member">Thành viên 3<small>Góp vốn 1/3</small></div>
+  </div>
+  <div class="arrow-down">▼</div>
+  <div class="company">CÔNG TY TNHH
+    <small>Pháp nhân duy nhất: nhập hàng, xuất hoá đơn, sở hữu thiết bị, thuê nhân viên vận hành</small></div>
+  <div class="arrow-down">▼</div>
+
+  <div class="row">
+    <div class="box c-tm" style="width:350px">
+      <h3>Túi C – Đơn hàng thương mại</h3>
+      <ul>
+        <li>Mỗi đơn 1 mã (DH001…)</li>
+        <li>1 người bỏ vốn & tự bán</li>
+        <li>Lãi/lỗ: <b>người bỏ vốn</b> chịu</li>
+      </ul>
+    </div>
+    <div class="box c-chung" style="width:350px">
+      <h3>Túi A – Quỹ chung</h3>
+      <ul>
+        <li>Kế toán nội bộ, quyết toán thuế quý</li>
+        <li>Lương NV, văn phòng (&lt; 30tr/tháng)</li>
+        <li>Lãi/lỗ: <b>chia đều 1/3</b></li>
+      </ul>
+    </div>
+    <div class="box c-tb" style="width:350px">
+      <h3>Túi B – Thiết bị cho thuê</h3>
+      <ul>
+        <li>Mỗi thiết bị/lô 1 mã (TB01…)</li>
+        <li>Vốn chung / cá nhân / hỗn hợp</li>
+        <li>Lãi/lỗ: <b>theo % góp vào TB</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:6px;font-size:15px;font-weight:600">
+    <div style="width:350px;text-align:right;color:var(--tm)">phí quản lý ──►</div>
+    <div style="width:350px"></div>
+    <div style="width:350px;color:var(--tb)">◄── phí quản lý</div>
+  </div>
+
+  <div class="loop">
+    <b style="color:var(--chung)">Vòng gắn kết:</b> Túi B và C luôn trích phí quản lý về Túi A ➜ Túi A trả chi phí cố định ➜
+    cuối quý <b>dư</b> thì chia 1/3, <b>thiếu</b> thì mỗi người bù 1/3. Ai làm nhiều đơn/nhiều máy thì đóng góp vào quỹ chung nhiều hơn.
+  </div>
+  <div class="num">1 / 5</div>
+</section>
+
+<!-- ========== SLIDE 2 ========== -->
+<section class="slide">
+  <h2>Túi C – Dòng tiền 1 đơn hàng thương mại</h2>
+  <p class="sub">Ví dụ: Doanh thu 500 tr, giá vốn 400 tr, chi phí trực tiếp 10 tr (đơn vị: triệu đồng)</p>
+
+  <div class="wf">
+    <div class="wf-row"><div class="wf-lbl"><b>Doanh thu đơn hàng</b>Khách trả cho công ty</div>
+      <div class="wf-track"><div class="wf-bar" style="left:0;width:100%;background:var(--ink)">500</div></div><div class="wf-val">500</div></div>
+    <div class="wf-row"><div class="wf-lbl"><b>Giá vốn</b>Hoàn trả người bỏ vốn</div>
+      <div class="wf-track"><div class="wf-bar" style="left:20%;width:80%;background:var(--cn)">Hoàn vốn 400 → người bỏ vốn</div></div><div class="wf-val">− 400</div></div>
+    <div class="wf-row"><div class="wf-lbl"><b>Chi phí trực tiếp</b>Vận chuyển, lắp đặt…</div>
+      <div class="wf-track"><div class="wf-bar" style="left:18%;width:2%;background:#94a3b8"></div></div><div class="wf-val">− 10</div></div>
+    <div class="wf-row"><div class="wf-lbl"><b>= Lãi gộp</b></div>
+      <div class="wf-track"><div class="wf-bar" style="left:0;width:18%;background:#334155">90</div></div><div class="wf-val">90</div></div>
+    <div class="wf-row"><div class="wf-lbl"><b>Phí quản lý → Quỹ chung</b>max(4% DT; 25% lãi gộp)</div>
+      <div class="wf-track"><div class="wf-bar" style="left:13.5%;width:4.5%;background:var(--chung)"></div></div><div class="wf-val" style="color:var(--chung)">− 22,5</div></div>
+    <div class="wf-row"><div class="wf-lbl"><b>Thuế TNDN phân bổ</b>~17% × 67,5</div>
+      <div class="wf-track"><div class="wf-bar" style="left:11.2%;width:2.3%;background:var(--thue)"></div></div><div class="wf-val">− 11,5</div></div>
+    <div class="wf-row"><div class="wf-lbl"><b>= Lãi của người bỏ vốn</b></div>
+      <div class="wf-track"><div class="wf-bar" style="left:0;width:11.2%;background:var(--cn)">56</div></div><div class="wf-val" style="color:var(--cn)">~56</div></div>
+  </div>
+
+  <div class="row" style="margin-top:26px">
+    <div class="box c-cn" style="flex:1"><h3>Người bỏ vốn nhận</h3>
+      <ul><li>Hoàn 400 tr vốn + ~56 tr lãi</li><li>Tự chịu rủi ro: tồn kho, nợ xấu, giảm giá</li></ul></div>
+    <div class="box c-chung" style="flex:1"><h3>Quỹ chung nhận</h3>
+      <ul><li>22,5 tr phí quản lý</li><li>Bù chi phí kế toán, thuế, nhân viên</li></ul></div>
+    <div class="box c-thue" style="flex:1"><h3>Đơn lỗ thì sao?</h3>
+      <ul><li>Phí quản lý tối thiểu vẫn thu (% DT)</li><li>Phần lỗ trừ vào vốn người bỏ vốn</li></ul></div>
+  </div>
+  <div class="num">2 / 5</div>
+</section>
+
+<!-- ========== SLIDE 3 ========== -->
+<section class="slide">
+  <h2>Túi B – Vòng đời 1 thiết bị cho thuê</h2>
+  <p class="sub">Hai giai đoạn: thu hồi vốn trước, chia lợi nhuận sau</p>
+
+  <div class="tl">
+    <div class="step" style="background:#334155;border-color:#334155">① Mua thiết bị<small>Gắn mã TB, ghi % sở hữu</small></div>
+    <div class="step" style="background:var(--cn);border-color:var(--cn)">② Cho thuê – hoàn vốn<small>Tiền ròng trả dần vốn gốc</small></div>
+    <div class="step" style="background:#b45309;border-color:#b45309">③ Mốc hoàn vốn<small>Tổng tiền ròng = giá mua</small></div>
+    <div class="step" style="background:var(--tb);border-color:var(--tb)">④ Các lần thuê sau<small>Lợi nhuận thuần</small></div>
+    <div class="step" style="background:var(--thue);border-color:var(--thue)">⑤ Thanh lý<small>Chia theo % sở hữu</small></div>
+  </div>
+
+  <p class="note" style="margin:0 0 10px"><b>Tiền ròng mỗi lần thuê</b> = Doanh thu thuê − chi phí trực tiếp (vận chuyển, bảo trì, sửa chữa) − <span style="color:var(--chung);font-weight:600">phí quản lý 10–15% → Quỹ chung</span></p>
+
+  <table>
+    <tr><th style="width:22%">Nguồn vốn thiết bị</th><th>② Giai đoạn hoàn vốn (chia tiền ròng)</th><th>④ Sau hoàn vốn (chia tiền ròng)</th></tr>
+    <tr><td><b>Vốn chung công ty</b></td>
+      <td><div class="stack"><div style="width:100%;background:var(--chung)">100% hoàn vốn công ty</div></div></td>
+      <td><div class="stack"><div style="width:100%;background:var(--chung)">100% lợi nhuận chung → chia 1/3</div></div></td></tr>
+    <tr><td><b>Vốn 1 cá nhân</b></td>
+      <td><div class="stack"><div style="width:100%;background:var(--cn)">100% hoàn vốn nhà đầu tư</div></div></td>
+      <td><div class="stack"><div style="width:65%;background:var(--cn)">Nhà đầu tư 60–70%</div><div style="width:35%;background:var(--chung)">Quỹ chung 30–40%</div></div></td></tr>
+    <tr><td><b>Lô hỗn hợp</b><br><span class="note">VD: A 50%, B 30%, chung 20%</span></td>
+      <td><div class="stack"><div style="width:50%;background:var(--cn)">A 50%</div><div style="width:30%;background:#a78bfa">B 30%</div><div style="width:20%;background:var(--chung)">Chung 20%</div></div></td>
+      <td><div class="stack"><div style="width:35%;background:var(--chung)">Trích chung 35%</div><div style="width:32.5%;background:var(--cn)">A 32,5%</div><div style="width:19.5%;background:#a78bfa">B 19,5%</div><div style="width:13%;background:#60a5fa">Chung 13%</div></div></td></tr>
+  </table>
+  <p class="note" style="margin-top:12px">Vì sao sau hoàn vốn quỹ chung vẫn được 30–40% từ máy của cá nhân? Máy chạy nhờ pháp nhân, nhân viên, khách hàng của công ty. Phần này giữ công bằng cho người không đầu tư máy.</p>
+  <div class="num">3 / 5</div>
+</section>
+
+<!-- ========== SLIDE 4 ========== -->
+<section class="slide">
+  <h2>Túi A – Quỹ chung & chia lợi nhuận cuối quý</h2>
+  <p class="sub">Mọi nguồn chảy về quỹ chung → trả chi phí cố định → kết quả chia đều 1/3</p>
+
+  <div class="row" style="align-items:center">
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px">
+      <div class="box c-tm"><h3>Phí QL đơn thương mại</h3><span class="note">3–5% DT hoặc 20–30% lãi gộp</span></div>
+      <div class="box c-tb"><h3>Phí QL tiền cho thuê</h3><span class="note">10–15% doanh thu thuê</span></div>
+      <div class="box c-tb"><h3>Phần 30–40% sau hoàn vốn</h3><span class="note">Từ thiết bị vốn cá nhân/hỗn hợp</span></div>
+      <div class="box c-chung"><h3>Lãi thiết bị vốn chung</h3><span class="note">Sau khi đã hoàn vốn</span></div>
+    </div>
+    <div style="font-size:40px;color:var(--mut)">➜</div>
+    <div style="display:flex;flex-direction:column;gap:12px;width:300px">
+      <div class="box c-chung" style="text-align:center;padding:24px"><h3 style="font-size:22px">QUỸ CHUNG</h3>
+        <span class="note">Trừ chi phí cố định<br>(kế toán, quyết toán thuế, NV, VP)<br>&lt; 30 tr/tháng ≈ &lt; 360 tr/năm</span></div>
+    </div>
+    <div style="font-size:40px;color:var(--mut)">➜</div>
+    <div style="display:flex;flex-direction:column;gap:12px;width:380px">
+      <div class="box" style="border-color:#16a34a;background:#dcfce7"><h3 style="color:#16a34a">DƯ ➜ Lợi nhuận</h3>
+        <ul><li>Nộp thuế TNDN</li><li>Chia cổ tức <b>1/3 mỗi người</b></li><li>Cá nhân nộp TNCN 5%</li></ul></div>
+      <div class="box" style="border-color:#dc2626;background:#fee2e2"><h3 style="color:#dc2626">THIẾU ➜ Bù quỹ</h3>
+        <ul><li>Mỗi thành viên bù <b>1/3</b></li><li>Xem lại mức phí quản lý quý sau</li></ul></div>
+    </div>
+  </div>
+  <div class="loop" style="margin-top:22px">
+    <b style="color:var(--chung)">Cách định mức phí quản lý:</b> Chi phí cố định cả năm ÷ Doanh thu dự kiến.
+    VD: 360 tr ÷ 6 tỷ ≈ 6% ➜ đặt phí 5–6% DT. Rà soát lại sau mỗi quý theo số liệu thực tế.
+  </div>
+  <div class="num">4 / 5</div>
+</section>
+
+<!-- ========== SLIDE 5 ========== -->
+<section class="slide">
+  <h2>Thứ tự ưu tiên dòng tiền & khung pháp lý</h2>
+  <p class="sub">Mỗi đồng thu về đi qua đúng thứ tự này – áp dụng cho cả đơn hàng và thiết bị</p>
+
+  <div class="row" style="align-items:flex-start">
+    <div class="prio">
+      <div class="p" style="background:#334155"><b>1</b>Chi phí trực tiếp của đơn / thiết bị</div>
+      <div class="p" style="background:var(--chung)"><b>2</b>Phí quản lý → Quỹ chung</div>
+      <div class="p" style="background:var(--thue)"><b>3</b>Thuế (TNDN, GTGT) phân bổ</div>
+      <div class="p" style="background:#b45309"><b>4</b>Hoàn vốn cho người đầu tư</div>
+      <div class="p" style="background:var(--cn)"><b>5</b>Chia lợi nhuận theo tỷ lệ đã thoả thuận</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:12px" class="legal">
+      <div class="box c-thue"><h3>⚠ Lưu ý pháp lý</h3>
+        <ul>
+          <li>TNHH chỉ chia cổ tức theo vốn góp (1/3) ➜ tiền đơn/thiết bị cá nhân trả qua <b>hợp đồng vay</b> (gốc + lãi + hoa hồng) hoặc <b>hợp đồng BCC</b></li>
+          <li>Thiết bị cá nhân nên chuyển sở hữu về công ty để khấu hao, xuất hoá đơn</li>
+          <li>Kế toán chốt hình thức & thuế suất trước khi áp dụng</li>
+        </ul></div>
+      <div class="box c-chung"><h3>Thoả thuận thành viên cần có</h3>
+        <ul class="check">
+          <li>Mức phí quản lý & tỷ lệ chia</li>
+          <li>Duyệt đơn &gt; X triệu cần 2/3 đồng ý</li>
+          <li>Sổ quản trị theo mã đơn / mã TB</li>
+          <li>Xử lý khi rút vốn / rời công ty</li>
+          <li>Không bán hàng cạnh tranh bên ngoài</li>
+        </ul></div>
+    </div>
+  </div>
+  <div class="num">5 / 5</div>
+</section>
+
+</body>
+</html>
