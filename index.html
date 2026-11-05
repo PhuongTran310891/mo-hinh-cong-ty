@@ -72,6 +72,7 @@
 </style>
 </head>
 <body>
+<a href="#phieu" style="position:fixed;right:20px;top:20px;z-index:9;background:#ea580c;color:#fff;padding:10px 18px;border-radius:99px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3)">📝 Phiếu lấy ý kiến</a>
 
 <!-- ========== SLIDE 1 ========== -->
 <section class="slide">
@@ -434,6 +435,117 @@
   <p class="note" style="margin-top:16px">Nội dung pháp lý & thuế mang tính định hướng – cần luật sư / kế toán xác nhận trước khi ký kết.</p>
   <div class="num"></div>
 </section>
+
+<!-- ========== PHIẾU LẤY Ý KIẾN ========== -->
+<style>
+  .survey{width:1280px;margin:24px auto 60px;background:var(--bg);border-radius:14px;padding:40px 56px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .q{background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:16px 20px;margin-bottom:14px}
+  .q h4{margin:0 0 4px;font-size:17px} .q .ref{font-size:13px;color:var(--mut);margin-bottom:8px}
+  .q label{display:block;padding:5px 8px;border-radius:6px;cursor:pointer;font-size:15px}
+  .q label:hover{background:#f1f5f9}
+  .q input[type=text],.q textarea,#ghichu{width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:6px;font:inherit;font-size:15px;margin-top:4px}
+  .q .other{display:none;margin-left:28px;width:calc(100% - 28px)}
+  .q.miss{border-color:#dc2626;background:#fff5f5}
+  .grp{font-size:20px;color:var(--chung);margin:26px 0 10px;border-bottom:2px solid var(--chung-l);padding-bottom:6px}
+  .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+  .btns button{padding:12px 22px;border:0;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;color:#fff}
+  #out{width:100%;height:260px;margin-top:16px;font-family:Consolas,monospace;font-size:13px;display:none;padding:10px;border-radius:8px;border:1px solid #cbd5e1}
+  #msg{margin-top:10px;font-weight:600}
+  @media (max-width:1300px){.survey{width:auto;margin:12px;padding:20px}}
+</style>
+<section class="survey" id="phieu">
+  <h1>📝 Phiếu lấy ý kiến nhà đầu tư</h1>
+  <p class="sub">Sau khi xem 11 slide, mỗi vấn đề chọn 1 phương án gợi ý <b>hoặc</b> chọn “Ý kiến khác” và ghi đề xuất riêng.
+    Bấm <b>“Tổng hợp ý kiến”</b> rồi <b>sao chép</b> gửi qua Zalo/email cho người điều phối. Bài làm tự lưu trên trình duyệt của bạn.</p>
+
+  <div class="q" id="q-ndt"><h4>Bạn là nhà đầu tư nào? *</h4>
+    <label><input type="radio" name="ndt" value="A"> Nhà đầu tư A</label>
+    <label><input type="radio" name="ndt" value="B"> Nhà đầu tư B</label>
+    <label><input type="radio" name="ndt" value="C"> Nhà đầu tư C</label>
+  </div>
+
+  <div id="qs"></div>
+
+  <div class="q"><h4>Ý kiến / đề xuất chung khác</h4>
+    <textarea id="ghichu" rows="4" placeholder="Vấn đề chưa có trong phiếu, câu hỏi cần làm rõ…"></textarea></div>
+
+  <div class="btns">
+    <button style="background:var(--chung)" onclick="tongHop()">① Tổng hợp ý kiến</button>
+    <button style="background:var(--tb)" onclick="saoChep()">② Sao chép để gửi Zalo/email</button>
+    <button style="background:var(--tm)" onclick="taiFile()">Tải file .txt</button>
+    <button style="background:#64748b" onclick="if(confirm('Xoá toàn bộ lựa chọn?')){localStorage.removeItem(KEY);location.reload()}">Làm lại</button>
+  </div>
+  <div id="msg"></div>
+  <textarea id="out" readonly></textarea>
+</section>
+
+<script>
+const KEY="phieu-y-kien-v1";
+const Q=[
+ {g:"I. Cơ cấu sở hữu & thiết bị cũ"},
+ {id:"pa",t:"Phương án sở hữu công ty",r:"Slide 2",o:["PA1 – A, B, C là thành viên TNHH (1/3), Giám đốc làm thuê","PA2 – 1 trong A/B/C đứng tên chủ sở hữu + thoả thuận góp vốn công chứng","PA3 – Giám đốc đứng tên, A/B/C đầu tư qua hợp đồng vay/BCC + 5 lớp bảo vệ"]},
+ {id:"bv",m:1,t:"Nếu chọn PA3: đồng ý áp dụng những lớp bảo vệ nào? (chọn nhiều)",r:"Slide 2",o:["① Thoả thuận đầu tư & đứng tên hộ có công chứng","② Tiền vào/ra qua chuyển khoản + hợp đồng vay/BCC","③ Ngân hàng duyệt 2 cấp","④ Nhà đầu tư giữ con dấu, ĐKDN gốc, hoá đơn TB","⑤ TB giá trị lớn thế chấp bảo đảm khoản vay cho nhà đầu tư"]},
+ {id:"tbc",t:"Cách xử lý thiết bị cũ của A",r:"Slide 3",o:["a. Tính vào vốn góp của A, B và C góp tiền mặt tương đương","b. Tách “Lô TB cũ – của A”, hoàn vốn cho A trước","c. B, C mua dần 1/3 mỗi người bằng lợi nhuận 12–24 tháng","Lộ trình b ➜ c (bắt đầu b, sau chuyển c)"]},
+ {g:"II. Phí quản lý & chia lợi nhuận"},
+ {id:"ptm",t:"Phí quản lý đơn bán đứt (thương mại) nộp về quỹ chung",r:"Slide 4",o:["3% doanh thu","5% doanh thu","20% lãi gộp","30% lãi gộp","Lấy mức cao hơn của 4% doanh thu và 25% lãi gộp"]},
+ {id:"pth",t:"Phí quản lý tiền cho thuê thiết bị",r:"Slide 5",o:["10% doanh thu thuê","12% doanh thu thuê","15% doanh thu thuê"]},
+ {id:"hv",t:"Chia tiền ròng sau hoàn vốn – thiết bị vốn cá nhân (nhà đầu tư / quỹ chung)",r:"Slide 5",o:["70% / 30%","65% / 35%","60% / 40%"]},
+ {id:"dp",t:"Trích quỹ dự phòng từ lợi nhuận chung",r:"Slide 9",o:["5%","10%","Không trích"]},
+ {id:"ck",t:"Chu kỳ chia lợi nhuận",r:"Slide 9",o:["Tạm chia theo quý, quyết toán theo năm","Chia 6 tháng/lần","Chia 1 lần cuối năm"]},
+ {id:"kpi",t:"Thưởng KPI cho Giám đốc",r:"Slide 9",o:["Không thưởng theo lợi nhuận (chỉ lương)","5% lợi nhuận vượt kế hoạch","10% lợi nhuận vượt kế hoạch"]},
+ {g:"III. Đầu tư thiết bị mới"},
+ {id:"gv",m:1,t:"Hình thức góp vốn mua thiết bị mới được chấp nhận (chọn nhiều)",r:"Slide 8",o:["1. Góp chung đều 1/3","2. Góp theo lô (hợp đồng vay/BCC), chia theo % thực góp","3. Dùng lợi nhuận giữ lại (quỹ tái đầu tư)","4. Vay ngân hàng / thuê tài chính / trả góp NCC"]},
+ {id:"moi",t:"Quy tắc mời góp khi có thiết bị mới",r:"Slide 8",o:["Mời đều 1/3 trước, ai không góp thì người khác góp thay","Ai có vốn thì góp, không cần mời đều"]},
+ {g:"IV. Biểu quyết & kiểm soát"},
+ {id:"hm",t:"Hạn mức chi Giám đốc được tự quyết",r:"Slide 10",o:["Dưới 10 triệu","Dưới 20 triệu","Dưới 50 triệu"]},
+ {id:"x",t:"Giá trị đơn hàng cần 2/3 nhà đầu tư đồng ý (X)",r:"Slide 10",o:["Trên 200 triệu","Trên 500 triệu","Trên 1 tỷ"]},
+ {id:"bq",t:"Phân cấp biểu quyết 3 cấp (GĐ tự quyết / 2/3 / 3/3) như slide 10",r:"Slide 10",o:["Đồng ý như đề xuất","Đồng ý nhưng chuyển “thay Giám đốc” xuống 2/3","Mọi việc quan trọng đều cần 3/3"]},
+ {id:"nh",t:"Duyệt chi ngân hàng",r:"Slide 11",o:["Giám đốc lập lệnh, 1 trong A/B/C duyệt","Giám đốc lập lệnh, 2 trong A/B/C duyệt","Chỉ cần duyệt với khoản vượt hạn mức Giám đốc"]},
+ {id:"bc",t:"Chế độ báo cáo của Giám đốc",r:"Slide 11",o:["Tuần + tháng + quý như đề xuất","Chỉ tháng + quý","Chỉ quý"]},
+ {g:"V. Rút vốn & rời công ty"},
+ {id:"lk",t:"Thời gian cam kết không rút vốn",r:"Slide 10",o:["12 tháng","18 tháng","24 tháng"]},
+ {id:"bt",t:"Thời gian báo trước khi rút vốn",r:"Slide 10",o:["3 tháng","6 tháng"]},
+ {id:"tt",t:"Thanh toán phần vốn cho người rút",r:"Slide 10",o:["3 đợt trong 6 tháng","6 đợt trong 12 tháng"]},
+ {id:"dg",t:"Cách định giá phần vốn khi rút",r:"Slide 10",o:["Theo sổ quản trị (vốn + lãi giữ lại − lỗ), TB theo giá trị còn lại","Thuê định giá độc lập, phí chia đều"]},
+ {id:"vp",t:"Chiết khấu mua lại khi rời do vi phạm",r:"Slide 10",o:["20%","30%"]},
+ {id:"tk",t:"Người thừa kế khi nhà đầu tư qua đời",r:"Slide 10",o:["Nhận giá trị, chỉ thành nhà đầu tư nếu 2 người còn lại đồng ý","Mặc nhiên thay thế làm nhà đầu tư"]}
+];
+const qs=document.getElementById("qs");let n=0;
+Q.forEach(q=>{
+  if(q.g){qs.insertAdjacentHTML("beforeend",`<div class="grp">${q.g}</div>`);return;}
+  n++;q.n=n;const ty=q.m?"checkbox":"radio";
+  qs.insertAdjacentHTML("beforeend",`<div class="q" id="q-${q.id}"><h4>${n}. ${q.t}${q.m?"":" *"}</h4><div class="ref">Tham chiếu: ${q.r}</div>
+   ${q.o.map(o=>`<label><input type="${ty}" name="${q.id}" value="${o.replace(/"/g,"&quot;")}"> ${o}</label>`).join("")}
+   <label><input type="${ty}" name="${q.id}" value="__khac"> <i>Ý kiến khác (ghi rõ):</i></label>
+   <input type="text" class="other" id="o-${q.id}" placeholder="Đề xuất của bạn…"></div>`);
+});
+function syncOther(){Q.forEach(q=>{if(!q.id)return;const k=document.querySelector(`input[name="${q.id}"][value="__khac"]`);document.getElementById("o-"+q.id).style.display=k.checked?"block":"none";});}
+function save(){const d={};document.querySelectorAll("#phieu input,#phieu textarea").forEach(e=>{if(e.id==="out")return;if(e.type==="radio"||e.type==="checkbox"){if(e.checked)(d[e.name]=d[e.name]||[]).push(e.value)}else if(e.id)d[e.id]=e.value});localStorage.setItem(KEY,JSON.stringify(d));}
+function load(){const d=JSON.parse(localStorage.getItem(KEY)||"{}");document.querySelectorAll("#phieu input,#phieu textarea").forEach(e=>{if(e.type==="radio"||e.type==="checkbox"){e.checked=(d[e.name]||[]).includes(e.value)}else if(e.id&&d[e.id]!=null)e.value=d[e.id]});syncOther();}
+document.getElementById("phieu").addEventListener("input",()=>{syncOther();save();});
+load();
+function tongHop(){
+  let miss=[];document.querySelectorAll(".q").forEach(e=>e.classList.remove("miss"));
+  const ndt=document.querySelector('input[name="ndt"]:checked');if(!ndt)miss.push("q-ndt");
+  const pa=document.querySelector('input[name="pa"]:checked');
+  let s=`PHIẾU Ý KIẾN – NHÀ ĐẦU TƯ ${ndt?ndt.value:"?"}\nNgày: ${new Date().toLocaleString("vi-VN")}\n`;
+  Q.forEach(q=>{
+    if(q.g){s+=`\n== ${q.g} ==\n`;return;}
+    const ch=[...document.querySelectorAll(`input[name="${q.id}"]:checked`)].map(e=>e.value==="__khac"?"KHÁC: "+(document.getElementById("o-"+q.id).value.trim()||"(chưa ghi)"):e.value);
+    const optional=q.m||(q.id==="bv"&&pa&&!pa.value.startsWith("PA3"));
+    if(!ch.length&&!optional)miss.push("q-"+q.id);
+    s+=`${q.n}. ${q.t}\n   ➜ ${ch.length?ch.join(" | "):"(bỏ trống)"}\n`;
+  });
+  const gc=document.getElementById("ghichu").value.trim();if(gc)s+=`\nÝ kiến chung khác:\n${gc}\n`;
+  const out=document.getElementById("out");out.value=s;out.style.display="block";
+  const msg=document.getElementById("msg");
+  if(miss.length){miss.forEach(id=>document.getElementById(id).classList.add("miss"));msg.style.color="#dc2626";msg.textContent=`Còn ${miss.length} câu chưa chọn (đánh dấu đỏ) – vẫn có thể gửi, nhưng nên hoàn thiện.`;document.getElementById(miss[0]).scrollIntoView({behavior:"smooth",block:"center"});}
+  else{msg.style.color="#16a34a";msg.textContent="Đã đủ ý kiến ✔ Bấm ② để sao chép và gửi.";}
+  return s;
+}
+function saoChep(){const s=tongHop();navigator.clipboard.writeText(s).then(()=>{const m=document.getElementById("msg");m.style.color="#16a34a";m.textContent="Đã sao chép ✔ Dán vào Zalo/email gửi người điều phối.";},()=>{const o=document.getElementById("out");o.select();document.execCommand("copy");});}
+function taiFile(){const s=tongHop();const ndt=(document.querySelector('input[name="ndt"]:checked')||{}).value||"X";const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+s],{type:"text/plain;charset=utf-8"}));a.download=`y-kien-nha-dau-tu-${ndt}.txt`;a.click();}
+</script>
 
 </body>
 </html>
