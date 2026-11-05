@@ -61,6 +61,13 @@
   .legal .box{flex:1}
   .check li{list-style:none;margin-left:-18px}
   .check li::before{content:"☐ ";color:var(--chung);font-weight:700}
+  body{counter-reset:sl} .slide{counter-increment:sl} .num::after{content:counter(sl) " / 11"}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:18px} .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px} .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .rec{position:relative} .rec::before{content:"KHUYẾN NGHỊ";position:absolute;top:-11px;right:12px;background:#16a34a;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px}
+  .warn{border:2px solid #dc2626;background:#fee2e2;border-radius:12px;padding:14px 18px} .warn h3{color:#dc2626;margin:0 0 8px;font-size:19px}
+  .ok{border:2px solid #16a34a;background:#dcfce7;border-radius:12px;padding:14px 18px} .ok h3{color:#16a34a;margin:0 0 8px;font-size:19px}
+  .tier{display:flex;align-items:center;gap:16px;padding:12px 16px;border-radius:10px;color:#fff;font-size:15px} .tier b{font-size:18px;min-width:150px}
+  ol.steps{margin:0;padding-left:22px;font-size:15px;line-height:1.55}
   @media print{body{background:#fff}.slide{box-shadow:none;margin:0;page-break-after:always;border-radius:0}}
 </style>
 </head>
@@ -72,13 +79,13 @@
   <p class="sub">3 thành viên – 1 pháp nhân – 3 “túi” hạch toán riêng, liên kết bằng phí quản lý</p>
 
   <div class="row">
-    <div class="member">Thành viên 1<small>Góp vốn 1/3</small></div>
-    <div class="member">Thành viên 2<small>Góp vốn 1/3</small></div>
-    <div class="member">Thành viên 3<small>Góp vốn 1/3</small></div>
+    <div class="member">Nhà đầu tư A<small>Góp vốn 1/3</small></div>
+    <div class="member">Nhà đầu tư B<small>Góp vốn 1/3</small></div>
+    <div class="member">Nhà đầu tư C<small>Góp vốn 1/3</small></div>
   </div>
   <div class="arrow-down">▼</div>
   <div class="company">CÔNG TY TNHH
-    <small>Pháp nhân duy nhất: nhập hàng, xuất hoá đơn, sở hữu thiết bị, thuê nhân viên vận hành</small></div>
+    <small>Pháp nhân duy nhất: nhập hàng, xuất hoá đơn, sở hữu thiết bị · <b>Giám đốc (thuê)</b> + nhân viên vận hành hằng ngày</small></div>
   <div class="arrow-down">▼</div>
 
   <div class="row">
@@ -118,7 +125,75 @@
     <b style="color:var(--chung)">Vòng gắn kết:</b> Túi B và C luôn trích phí quản lý về Túi A ➜ Túi A trả chi phí cố định ➜
     cuối quý <b>dư</b> thì chia 1/3, <b>thiếu</b> thì mỗi người bù 1/3. Ai làm nhiều đơn/nhiều máy thì đóng góp vào quỹ chung nhiều hơn.
   </div>
-  <div class="num">1 / 5</div>
+  <div class="num"></div>
+</section>
+
+<!-- ========== SLIDE: CƠ CẤU SỞ HỮU ========== -->
+<section class="slide">
+  <h2>Cơ cấu sở hữu – ai đứng tên, ai hưởng lợi?</h2>
+  <p class="sub">Hiện trạng: Giám đốc (làm thuê, không góp vốn) đứng tên · A, B, C góp vốn nhưng không đứng tên, không muốn dính sổ sách</p>
+
+  <div class="g2">
+    <div class="warn"><h3>⚠ Rủi ro khi người đứng tên ≠ người góp vốn</h3>
+      <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.55">
+        <li>Theo luật, <b>người đứng tên là chủ toàn bộ công ty & thiết bị</b></li>
+        <li>Giám đốc nghỉ / mâu thuẫn ➜ không ai ký bán TB, rút tiền, đổi đăng ký</li>
+        <li>Giám đốc ly hôn, nợ cá nhân, qua đời ➜ tài sản công ty bị kéo vào</li>
+        <li>Luật DN sửa đổi 2025 yêu cầu kê khai <b>chủ sở hữu hưởng lợi</b></li>
+      </ul></div>
+    <div class="ok"><h3>Về lo ngại thuế TNCN</h3>
+      <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.55">
+        <li>Lãi vay / cổ tức nhận từ công ty là <b>thu nhập đầu tư vốn</b>: công ty khấu trừ <b>5% tại nguồn</b></li>
+        <li>Khoản này <b>không cộng vào quyết toán TNCN tiền lương</b> ở công ty đang làm</li>
+        <li>➜ Nhận tiền có chứng từ vẫn “sạch” hơn nhận tay ngoài sổ</li>
+        <li class="note">(Kế toán xác nhận trước khi áp dụng)</li>
+      </ul></div>
+  </div>
+
+  <div class="g3" style="margin-top:22px">
+    <div class="box c-chung"><h3>PA1 – An toàn nhất</h3>
+      <ul><li>A, B, C là <b>thành viên</b> TNHH (1/3)</li><li>Giám đốc chỉ là người đại diện thuê</li><li>Phải lên sổ thành viên, công khai trên ĐKDN</li></ul></div>
+    <div class="box c-thue"><h3>PA2 – Trung gian</h3>
+      <ul><li><b>1 trong A, B, C</b> đứng tên chủ sở hữu</li><li>Giám đốc do chủ sở hữu bổ nhiệm / miễn nhiệm</li><li>Thoả thuận góp vốn công chứng giữa 3 người</li></ul></div>
+    <div class="box c-tm rec"><h3>PA3 – Đúng mong muốn hiện tại</h3>
+      <ul><li>Giám đốc đứng tên, A, B, C <b>không lên sổ thành viên</b></li><li>Tiền đầu tư = <b>hợp đồng vay / BCC</b> với công ty</li><li><b>Bắt buộc đủ 5 lớp bảo vệ</b> ⬇</li></ul></div>
+  </div>
+
+  <div class="loop" style="border-color:var(--tm)"><b style="color:var(--tm)">5 lớp bảo vệ cho PA3:</b>
+    ① Thoả thuận đầu tư & đứng tên hộ <b>có công chứng</b> &nbsp;·&nbsp;
+    ② Tiền vào/ra qua <b>chuyển khoản + hợp đồng vay/BCC</b> &nbsp;·&nbsp;
+    ③ Ngân hàng <b>duyệt 2 cấp</b> (GĐ lập lệnh, nhà đầu tư duyệt) &nbsp;·&nbsp;
+    ④ Con dấu, ĐKDN gốc, hoá đơn TB <b>do nhà đầu tư giữ</b> &nbsp;·&nbsp;
+    ⑤ TB giá trị lớn <b>thế chấp bảo đảm khoản vay</b> cho nhà đầu tư (đăng ký giao dịch bảo đảm)
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- ========== SLIDE: THIẾT BỊ CŨ ========== -->
+<section class="slide">
+  <h2>Thiết bị cũ – công ty của A mua trước khi góp vốn, chưa hoàn vốn</h2>
+  <p class="sub">Phải “khoá sổ” phần cũ trước, rồi mới nhập chung</p>
+
+  <div class="tl">
+    <div class="step" style="background:#334155;border-color:#334155">① Chốt ngày mốc<small>Thu chi, nợ, thuế trước mốc thuộc A</small></div>
+    <div class="step" style="background:#b45309;border-color:#b45309">② Rà soát công ty cũ<small>Nợ phải trả, thuế còn thiếu, HĐ đang chạy</small></div>
+    <div class="step" style="background:var(--tb);border-color:var(--tb)">③ Kiểm kê & định giá TB<small>Giá trị còn lại vs giá thị trường</small></div>
+    <div class="step" style="background:var(--chung);border-color:var(--chung)">④ Chọn cách xử lý<small>a, b hoặc c bên dưới</small></div>
+  </div>
+
+  <div class="g3">
+    <div class="box c-chung"><h3>a. Tính vào vốn của A</h3>
+      <ul><li>Giá trị TB định giá = phần góp của A</li><li>B, C mỗi người góp tiền mặt bằng số đó</li><li>VD TB 900tr ➜ tổng vốn 2,7 tỷ, mỗi người 1/3</li></ul>
+      <p class="note" style="margin:8px 0 0">Phù hợp: B, C có sẵn tiền</p></div>
+    <div class="box c-cn rec"><h3>b. Tách “Lô TB cũ – của A”</h3>
+      <ul><li>Áp dụng quy tắc TB vốn cá nhân (slide 5)</li><li>Tiền ròng hoàn vốn cho A trước</li><li>Sau hoàn vốn: A 60–70% / quỹ chung 30–40%</li></ul>
+      <p class="note" style="margin:8px 0 0">Phù hợp: giai đoạn đầu, đơn giản nhất</p></div>
+    <div class="box c-tb"><h3>c. B, C mua dần</h3>
+      <ul><li>B, C mỗi người mua 1/3 TB cũ từ A</li><li>Trả dần bằng lợi nhuận được chia 12–24 tháng</li><li>Cuối kỳ về sở hữu đều 1/3</li></ul>
+      <p class="note" style="margin:8px 0 0">Phù hợp: muốn 1/3 đều nhưng thiếu tiền ngay</p></div>
+  </div>
+  <div class="loop"><b style="color:var(--chung)">Lộ trình gợi ý:</b> bắt đầu bằng <b>b</b> ➜ khi B, C có tiền thì chuyển sang <b>c</b> để về sở hữu đều 1/3.</div>
+  <div class="num"></div>
 </section>
 
 <!-- ========== SLIDE 2 ========== -->
@@ -151,7 +226,7 @@
     <div class="box c-thue" style="flex:1"><h3>Đơn lỗ thì sao?</h3>
       <ul><li>Phí quản lý tối thiểu vẫn thu (% DT)</li><li>Phần lỗ trừ vào vốn người bỏ vốn</li></ul></div>
   </div>
-  <div class="num">2 / 5</div>
+  <div class="num"></div>
 </section>
 
 <!-- ========== SLIDE 3 ========== -->
@@ -182,7 +257,7 @@
       <td><div class="stack"><div style="width:35%;background:var(--chung)">Trích chung 35%</div><div style="width:32.5%;background:var(--cn)">A 32,5%</div><div style="width:19.5%;background:#a78bfa">B 19,5%</div><div style="width:13%;background:#60a5fa">Chung 13%</div></div></td></tr>
   </table>
   <p class="note" style="margin-top:12px">Vì sao sau hoàn vốn quỹ chung vẫn được 30–40% từ máy của cá nhân? Máy chạy nhờ pháp nhân, nhân viên, khách hàng của công ty. Phần này giữ công bằng cho người không đầu tư máy.</p>
-  <div class="num">3 / 5</div>
+  <div class="num"></div>
 </section>
 
 <!-- ========== SLIDE 4 ========== -->
@@ -214,7 +289,7 @@
     <b style="color:var(--chung)">Cách định mức phí quản lý:</b> Chi phí cố định cả năm ÷ Doanh thu dự kiến.
     VD: 360 tr ÷ 6 tỷ ≈ 6% ➜ đặt phí 5–6% DT. Rà soát lại sau mỗi quý theo số liệu thực tế.
   </div>
-  <div class="num">4 / 5</div>
+  <div class="num"></div>
 </section>
 
 <!-- ========== SLIDE 5 ========== -->
@@ -233,7 +308,7 @@
     <div style="flex:1;display:flex;flex-direction:column;gap:12px" class="legal">
       <div class="box c-thue"><h3>⚠ Lưu ý pháp lý</h3>
         <ul>
-          <li>TNHH chỉ chia cổ tức theo vốn góp (1/3) ➜ tiền đơn/thiết bị cá nhân trả qua <b>hợp đồng vay</b> (gốc + lãi + hoa hồng) hoặc <b>hợp đồng BCC</b></li>
+          <li>Lợi nhuận chỉ chia hợp pháp cho chủ sở hữu đứng tên ➜ tiền của nhà đầu tư nên đi/về qua <b>hợp đồng vay</b> (gốc + lãi) hoặc <b>hợp đồng BCC</b> có chứng từ (xem slide 2)</li>
           <li>Thiết bị cá nhân nên chuyển sở hữu về công ty để khấu hao, xuất hoá đơn</li>
           <li>Kế toán chốt hình thức & thuế suất trước khi áp dụng</li>
         </ul></div>
@@ -247,7 +322,117 @@
         </ul></div>
     </div>
   </div>
-  <div class="num">5 / 5</div>
+  <div class="num"></div>
+</section>
+
+<!-- ========== SLIDE: 2 MẢNG + GÓP VỐN ========== -->
+<section class="slide">
+  <h2>Hai mảng kinh doanh & cách góp vốn đầu tư thiết bị mới</h2>
+  <p class="sub">Hạch toán 2 trung tâm lợi nhuận riêng · mỗi thiết bị mới phải có Phiếu đầu tư</p>
+
+  <div class="g2">
+    <div class="box c-tb"><h3>Cho thuê thiết bị theo dự án</h3>
+      <ul><li>Vốn dài hạn nằm trong TB</li><li>Theo dõi: % TB đang cho thuê, thời gian hoàn vốn từng TB</li><li>Rủi ro: hư hỏng, mất, khách chậm trả</li><li>Kiểm soát: <b>đặt cọc</b>, biên bản giao nhận có ảnh, <b>bảo hiểm TB</b>, phí đền bù</li><li>Phí quản lý: 10–15% doanh thu thuê</li></ul></div>
+    <div class="box c-tm"><h3>Bán đứt thiết bị theo đơn hàng</h3>
+      <ul><li>Vốn ngắn hạn, quay vòng theo đơn</li><li>Theo dõi: lãi gộp %, vòng quay vốn, công nợ</li><li>Rủi ro: tồn kho, huỷ đơn, bảo hành</li><li>Kiểm soát: <b>cọc 30–50%</b>, chỉ nhập khi đã có cọc</li><li>Phí quản lý: 3–5% DT hoặc 20–30% lãi gộp</li></ul></div>
+  </div>
+
+  <h3 style="margin:22px 0 10px;font-size:20px">4 hình thức góp vốn khi mua thiết bị mới</h3>
+  <div class="g4">
+    <div class="box c-chung"><h3>1. Góp chung đều</h3><span class="note">A, B, C mỗi người 1/3 ➜ TB vốn chung, lãi chia 1/3</span></div>
+    <div class="box c-cn"><h3>2. Góp theo lô</h3><span class="note">Hợp đồng vay/BCC từng lô ➜ chia theo % thực góp</span></div>
+    <div class="box c-tb"><h3>3. Lợi nhuận giữ lại</h3><span class="note">Quỹ tái đầu tư ➜ TB vốn chung, chia 1/3</span></div>
+    <div class="box c-thue"><h3>4. Vay / trả góp</h3><span class="note">Ngân hàng, thuê tài chính, NCC ➜ trừ lãi vay trước khi chia</span></div>
+  </div>
+  <div class="loop"><b style="color:var(--chung)">Quy tắc mời góp:</b> Phiếu đầu tư ghi giá, nguồn vốn, tỷ lệ góp, giá thuê dự kiến, thời gian hoàn vốn ➜ biểu quyết 2/3 ➜
+    mời A, B, C góp đều 1/3 trước; ai không tham gia thì người còn lại được góp thay, lô tính theo tỷ lệ thực góp.</div>
+  <div class="num"></div>
+</section>
+
+<!-- ========== SLIDE: CHIA LÃI / LỖ ========== -->
+<section class="slide">
+  <h2>Chia lợi nhuận & chia sẻ lỗ</h2>
+  <p class="sub">Lãi chia theo ai bỏ vốn; lỗ chịu tối đa bằng số vốn đã bỏ</p>
+
+  <div class="g2">
+    <div class="ok"><h3>Lợi nhuận</h3>
+      <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.6">
+        <li>Theo thứ tự ưu tiên (slide 7): chi phí trực tiếp ➜ phí QL ➜ thuế ➜ hoàn vốn ➜ chia</li>
+        <li>Quỹ chung & TB vốn chung: <b>A, B, C mỗi người 1/3</b></li>
+        <li>Lô / đơn riêng: <b>theo % góp vào lô</b></li>
+        <li>Trích <b>quỹ dự phòng 5–10%</b> lợi nhuận chung (hư hỏng, nợ xấu)</li>
+        <li>Tạm chia theo <b>quý</b>, quyết toán theo <b>năm</b></li>
+        <li>Thưởng KPI Giám đốc: 5–10% lợi nhuận vượt kế hoạch (tuỳ chọn)</li>
+      </ul></div>
+    <div class="warn"><h3>Lỗ – ai chịu?</h3>
+      <table style="font-size:14px">
+        <tr><th>Loại lỗ</th><th>Ai chịu</th></tr>
+        <tr><td>Lỗ 1 đơn / 1 lô riêng</td><td>Người góp lô, tối đa bằng vốn đã góp vào lô</td></tr>
+        <tr><td>Quỹ chung thiếu (chi phí cố định)</td><td>A, B, C bù mỗi người 1/3</td></tr>
+        <tr><td>Tổn thất lớn (TB hỏng/mất, khách vỡ nợ)</td><td>Bảo hiểm ➜ quỹ dự phòng ➜ chủ sở hữu TB theo tỷ lệ</td></tr>
+        <tr><td>Nghĩa vụ vượt vốn góp</td><td>Không ai chịu, trừ khi đã ký bảo lãnh</td></tr>
+      </table></div>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- ========== SLIDE: BIỂU QUYẾT & RỜI CÔNG TY ========== -->
+<section class="slide">
+  <h2>Biểu quyết chốt phương án · Rút vốn · Rời công ty</h2>
+  <p class="sub">A, B, C mỗi người 1 phiếu (1/3) · Giám đốc chỉ quyết trong hạn mức được giao</p>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="tier" style="background:#334155"><b>Giám đốc tự quyết</b>Chi trong hạn mức (VD &lt; 20tr), đơn thuê/bán theo bảng giá đã duyệt ➜ báo cáo tuần</div>
+    <div class="tier" style="background:var(--chung)"><b>Cần 2/3 đồng ý</b>Đầu tư TB mới, đơn &gt; X tr, cho khách nợ &gt; Y tr, vay vốn, đổi bảng giá / mức phí quản lý</div>
+    <div class="tier" style="background:#dc2626"><b>Cần 3/3 đồng ý</b>Bán TB lớn, thay Giám đốc, nhận/loại nhà đầu tư, sửa thoả thuận, bảo lãnh, giải thể</div>
+  </div>
+  <p class="note" style="margin:8px 0 16px">Đơn/lô của chính mình thì không biểu quyết (cần 2 người còn lại cùng đồng ý) · Bế tắc: thương lượng 15 ngày ➜ hoà giải bên thứ ba ➜ quyền đề nghị mua lại phần của nhau</p>
+
+  <div class="g2">
+    <div class="box c-cn"><h3>Rút vốn / rời công ty</h3>
+      <ol class="steps">
+        <li>Cam kết <b>không rút 12–24 tháng đầu</b> (trừ bất khả kháng)</li>
+        <li>Báo trước <b>3–6 tháng</b></li>
+        <li>2 người còn lại có <b>quyền mua trước</b>; bán người ngoài phải được 2/3 đồng ý</li>
+        <li>Định giá: vốn góp + lãi giữ lại − lỗ (sổ quản trị); TB theo giá trị còn lại</li>
+        <li>Trả <b>chia 3–6 đợt</b> trong 6–12 tháng</li>
+      </ol></div>
+    <div class="box c-thue"><h3>Trường hợp đặc biệt</h3>
+      <ul>
+        <li><b>Phần trong lô riêng:</b> tiếp tục nhận theo lô đến khi hoàn vốn, hoặc được mua lại</li>
+        <li><b>Rời do vi phạm</b> (bán cạnh tranh, gian lận, lộ khách): mua lại chiết khấu 20–30% + bồi thường</li>
+        <li><b>Qua đời / mất năng lực:</b> người thừa kế nhận giá trị; chỉ thành nhà đầu tư nếu 2 người còn lại đồng ý</li>
+      </ul></div>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- ========== SLIDE: KIỂM SOÁT GIÁM ĐỐC & LỘ TRÌNH ========== -->
+<section class="slide">
+  <h2>Kiểm soát Giám đốc & lộ trình triển khai</h2>
+  <p class="sub">Giám đốc vận hành – nhà đầu tư kiểm soát tiền, tài sản và số liệu</p>
+
+  <div class="g2">
+    <div class="box c-chung"><h3>Kiểm soát Giám đốc (làm thuê)</h3>
+      <ul>
+        <li>Hợp đồng lao động + quyết định bổ nhiệm + <b>uỷ quyền có hạn mức</b></li>
+        <li>Cam kết bảo mật, không cạnh tranh</li>
+        <li>Ngân hàng <b>duyệt 2 cấp</b>: Giám đốc lập lệnh, 1 trong A/B/C duyệt</li>
+        <li>Con dấu, ĐKDN gốc, hoá đơn TB do nhà đầu tư giữ</li>
+        <li>Báo cáo: <b>tuần</b> (thu chi, TB đang thuê, công nợ) · <b>tháng</b> (lãi lỗ theo mã đơn/TB) · <b>quý</b> (chia lợi nhuận)</li>
+      </ul></div>
+    <div class="box c-tb"><h3>Lộ trình</h3>
+      <ol class="steps">
+        <li>Chốt phương án sở hữu (PA1 / PA2 / PA3 + 5 lớp bảo vệ)</li>
+        <li>Chốt ngày mốc, rà soát công ty cũ, định giá TB cũ của A, chọn cách a / b / c</li>
+        <li>Soạn <b>Thoả thuận nhà đầu tư</b> (slide 2–10) ➜ luật sư rà soát ➜ công chứng</li>
+        <li>Ký hợp đồng vay/BCC từng nhà đầu tư với công ty</li>
+        <li>Lập sổ quản trị theo mã đơn / mã TB + mẫu Phiếu đầu tư</li>
+        <li>Họp quý đầu tiên: rà soát mức phí quản lý theo số thực tế</li>
+      </ol></div>
+  </div>
+  <p class="note" style="margin-top:16px">Nội dung pháp lý & thuế mang tính định hướng – cần luật sư / kế toán xác nhận trước khi ký kết.</p>
+  <div class="num"></div>
 </section>
 
 </body>
